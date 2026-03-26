@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Availability | Premium Tower Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.12);
+  --dark: #0A0A0F;
+  --dark-2: #111118;
+  --dark-3: #1A1A24;
+  --cream: #F5F0E8;
+  --text-muted: rgba(245,240,232,0.5);
+  --nav-h: 80px;
+  --success: #2ed573;
+  --danger: #ff4757;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--dark);
+  color: var(--cream);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .cormorant { font-family: 'Cormorant Garamond', serif; }
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: var(--transition); }
+
+em { font-style: italic; color: var(--gold); font-weight: 600; }
+
+/* Navbar */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid var(--gold-border);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 60px;
+  transition: var(--transition);
+}
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); }
+.logo span { color: var(--cream); font-weight: 300; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; font-weight: 400; }
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+.nav-button { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; border-radius: 2px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.nav-button:hover { background: var(--gold); color: var(--dark); }
+.hamburger { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; z-index: 101; }
+.nav-menu-mobile {
+  position: absolute; top: var(--nav-h); left: 0; right: 0;
+  background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--gold-border);
+  flex-direction: column; padding: 20px 30px; gap: 20px; display: none;
+}
+.nav-menu-mobile.open { display: flex; }
+
+/* Buttons & Utils */
+.btn-primary { background: var(--gold); color: var(--dark); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+.btn-outline { background: transparent; border: 1px solid rgba(245,240,232,0.25); color: var(--cream); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+.section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.section-heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+.section-subtext { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; margin-left: auto; margin-right: auto; }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Header & Live Indicator */
+.page-header {
+  padding: calc(var(--nav-h) + 60px) 60px 40px; text-align: center; position: relative;
+  background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 60%);
+}
+.live-indicator {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--success); background: rgba(46, 213, 115, 0.1); padding: 6px 12px; border-radius: 20px;
+  margin-bottom: 24px; border: 1px solid rgba(46, 213, 115, 0.2);
+}
+.pulse-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(46,213,115,0.4); } 70% { box-shadow: 0 0 0 10px rgba(46,213,115,0); } 100% { box-shadow: 0 0 0 0 rgba(46,213,115,0); } }
+
+/* Summary Bar */
+.summary-bar {
+  display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px;
+  padding: 20px; background: rgba(255,255,255,0.02); border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border);
+}
+.summary-item { text-align: center; }
+.summary-val { font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; color: var(--cream); line-height: 1; }
+.summary-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 4px; }
+.c-avail { color: var(--success); } .c-lim { color: var(--gold); } .c-full { color: var(--danger); }
+
+/* Filter Bar */
+.filter-wrapper { padding: 0 60px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 10; }
+.filter-bar {
+  display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap;
+  background: rgba(20,20,28,0.6); backdrop-filter: blur(12px); border: 1px solid var(--gold-border);
+  padding: 24px; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.filter-group { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 8px; }
+.filter-group label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.filter-group select, .filter-group input {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; padding: 12px 14px;
+  border-radius: 4px; outline: none; transition: var(--transition); appearance: none;
+}
+.filter-group select:focus, .filter-group input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
+.filter-group select option { background: var(--dark-2); color: var(--cream); padding: 10px; }
+.filter-actions { display: flex; gap: 12px; margin-bottom: 2px; }
+.btn-apply { background: var(--gold); color: var(--dark); border: none; padding: 12px 24px; border-radius: 4px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition); }
+.btn-apply:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,168,76,0.3); }
+.btn-reset { background: transparent; color: var(--text-muted); border: 1px solid transparent; padding: 12px 16px; font-size: 0.85rem; text-transform: uppercase; transition: var(--transition); }
+.btn-reset:hover { color: var(--cream); }
+
+/* Room Cards Grid */
+.availability-content { padding: 80px 60px; max-width: 1400px; margin: 0 auto; }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.room-card {
+  background: var(--dark-2); border: 1px solid var(--gold-border); border-radius: 4px;
+  overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
+}
+.room-card:hover { transform: translateY(-8px); border-color: rgba(201,168,76,0.4); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+
+.room-img {
+  height: 200px; position: relative; display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; background-size: cover; background-position: center; border-bottom: 1px solid var(--gold-border);
+}
+.room-img::after { content: ''; position: absolute; inset: 0; background: rgba(10,10,15,0.6); z-index: 1; }
+.room-icon { position: relative; z-index: 2; text-shadow: 0 10px 20px rgba(0,0,0,0.8); }
+
+.badge { position: absolute; top: 16px; right: 16px; z-index: 3; font-size: 0.75rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; backdrop-filter: blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-transform: uppercase; letter-spacing: 0.05em; }
+.badge-avail { background: rgba(46, 213, 115, 0.15); color: var(--success); border: 1px solid rgba(46, 213, 115, 0.3); }
+.badge-lim { background: rgba(201, 168, 76, 0.15); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.3); }
+.badge-full { background: rgba(255, 71, 87, 0.15); color: var(--danger); border: 1px solid rgba(255, 71, 87, 0.3); }
+
+.room-body { padding: 30px; flex: 1; display: flex; flex-direction: column; }
+.room-type { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+.room-name { font-size: 1.8rem; line-height: 1.2; margin-bottom: 12px; color: var(--cream); }
+.room-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; flex: 1; }
+
+.room-price-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.room-price { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); font-weight: 600; line-height: 1; }
+.room-price span { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+.room-stock { font-size: 0.85rem; font-weight: 500; }
+.stock-avail { color: var(--success); } .stock-lim { color: var(--gold); } .stock-full { color: var(--danger); }
+
+.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-sm-primary { background: var(--gold); color: var(--dark); padding: 12px; text-align: center; border-radius: 4px; font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition); border: none; cursor: pointer; }
+.btn-sm-primary:hover { background: var(--gold-light); }
+.btn-sm-primary:disabled, .btn-sm-primary.disabled { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); pointer-events: none; }
+.btn-sm-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--cream); padding: 12px; text-align: center; border-radius: 4px; font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition); cursor: pointer; }
+.btn-sm-outline:hover { border-color: var(--gold); color: var(--gold); }
+.btn-sm-waitlist { background: rgba(255, 71, 87, 0.1); border: 1px solid rgba(255, 71, 87, 0.3); color: var(--danger); }
+.btn-sm-waitlist:hover { background: rgba(255, 71, 87, 0.2); }
+
+/* Load More */
+.load-more { text-align: center; margin-top: 60px; }
+
+/* CTA Section */
+#cta { padding: 120px 60px; text-align: center; background: radial-gradient(circle at center, var(--dark-2) 0%, var(--dark) 100%); position: relative; }
+#cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 30%, rgba(10, 10, 15, 0.8) 100%); pointer-events: none; z-index: 1;}
+#cta-content { position: relative; z-index: 2; }
+.hero-buttons { display: flex; flex-direction: row; gap: 16px; justify-content: center; }
+
+/* Footer */
+footer { padding: 80px 60px 40px; background: var(--dark-2); border-top: 1px solid var(--gold-border); margin-top: auto;}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand { margin-bottom: 20px; display: inline-block; }
+.footer-col h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 24px; }
+.footer-col p, .footer-col a { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: block; }
+.footer-col a:hover { color: var(--gold); padding-left: 4px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 40px; border-top: 1px solid rgba(245,240,232,0.05); color: var(--text-muted); font-size: 0.85rem; }
+.socials { display: flex; gap: 16px; }
+.social-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--text-muted); border-radius: 50%; color: var(--cream); font-size: 0.8rem; }
+.social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: var(--transition); }
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-card { background: var(--dark-2); border: 1px solid var(--gold-border); padding: 40px; max-width: 500px; width: 90%; border-radius: 4px; position: relative; transform: translateY(20px); transition: var(--transition); box-shadow: 0 30px 60px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto;}
+.modal-overlay.active .modal-card { transform: translateY(0); }
+.modal-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; }
+.modal-close:hover { color: var(--gold); }
+.form-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 2px; padding: 14px 16px; color: var(--cream); margin-bottom: 16px; outline: none; transition: border-color 0.3s; font-family: 'DM Sans', sans-serif;}
+.form-input:focus { border-color: var(--gold); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  nav { padding: 0 30px; } .nav-links, .nav-button { display: none; } .hamburger { display: block; }
+  .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .rooms-grid { grid-template-columns: 1fr; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-actions { flex-direction: column; margin-top: 10px; }
+  .card-actions { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">Premium <span>Tower Palace</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html" class="active">Availability</a>
+    <a href="#">Contact</a>
+    <a href="#">Assistance</a>
+  </div>
+  <button class="nav-button" onclick="openModal('General')">Book Now</button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+  <div class="nav-menu-mobile" id="mobileNav">
+    <a href="#" class="nav-button" onclick="openModal('General'); toggleMobileNav()" style="display:block; text-align:center; margin-bottom:16px;">Book Now</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html" class="active">Availability</a>
+    <a href="#">Contact</a>
+    <a href="#">Assistance</a>
+  </div>
+</nav>
+
+<header class="page-header reveal">
+  <div class="live-indicator"><span class="pulse-dot"></span> Updated just now</div>
+  <span class="section-tag">Accommodation</span>
+  <h1 class="section-heading">Check <em>Availability</em></h1>
+  <p class="section-subtext">Find your perfect space in seconds. Filter by room type, price, or see what's open right now.</p>
+</header>
+
+<div class="summary-bar reveal" id="summaryBar">
+  <!-- Filled via JS -->
+</div>
+
+<div class="filter-wrapper reveal">
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Room Type</label>
+      <select id="filterType">
+        <option value="all">All Types</option>
+        <option value="single">Single Room</option>
+        <option value="double">Double Room</option>
+        <option value="executive">Executive Room</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Price Max (GH₵)</label>
+      <select id="filterPrice">
+        <option value="1000">Any Price</option>
+        <option value="400">Up to 400</option>
+        <option value="500">Up to 500</option>
+        <option value="800">Up to 800</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Status</label>
+      <select id="filterStatus">
+        <option value="all">Any Status</option>
+        <option value="available">Available</option>
+        <option value="limited">Few Left</option>
+        <option value="full">Fully Booked</option>
+      </select>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+      <button class="btn-reset" onclick="resetFilters()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<section class="availability-content">
+  <div class="rooms-grid" id="roomsContainer">
+    <!-- Rendered via JS -->
+  </div>
+  
+  <div class="load-more reveal">
+    <button class="btn-outline" onclick="loadMore()">Load More Rooms</button>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="reveal">
+  <div id="cta-content">
+    <h2 class="section-heading cormorant">Secure Your Space <em>Before It's Gone</em></h2>
+    <p class="section-subtext" style="color:var(--text-muted); margin-bottom: 40px;">Spots fill up fast before the semester begins.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="openModal('General')">Check Availability</button>
+      <button class="btn-outline">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col" style="grid-column: span 1.5;">
+      <a href="index.html" class="logo footer-brand">Premium <span>Tower Palace</span></a>
+      <p>Elevating student and young professional living with premium amenities, unbeatable safety, and community focus.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="index.html">Homepage</a>
+      <a href="about.html">About Us</a>
+      <a href="index.html#rooms">Room Types</a>
+      <a href="availability.html">Availability</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <p>📞 +233 55 000 0000</p>
+      <p>✉️ hello@premiumtower.com</p>
+      <p>📍 View on Map</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="copyright">&copy; 2026 Premium Tower Palace. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="bookingModal" onclick="closeOnOverlay(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 class="cormorant" id="modalTitle" style="font-size: 2rem; color: var(--cream); margin-bottom: 8px;">Book a Room</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Fill out the form to reserve your space.</p>
+    
+    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Selected Room</label>
+    <input type="text" class="form-input" id="modalRoomType" readonly>
+    
+    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Full Name</label>
+    <input type="text" class="form-input" placeholder="Your Name">
+    
+    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Email / Phone</label>
+    <input type="text" class="form-input" placeholder="Contact Detail">
+    
+    <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="closeModal(); alert('Request sent!')">Submit Request</button>
+  </div>
+</div>
+
+<script>
+// Mock Data
+const allRooms = [
+  { id: 1, type: 'single', name: 'Standard Single', tag: 'Self Contained', desc: 'Private essential room for maximum focus. Includes private bath and desk.', price: 450, period: 'month', status: 'available', stock: 12, icon: '🛏️', bg: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+  { id: 2, type: 'double', name: 'Shared Double', tag: 'Shared Suite', desc: 'Comfortable shared living space balancing privacy with community.', price: 280, period: 'person', status: 'limited', stock: 2, icon: '🛏️🛏️', bg: 'https://images.unsplash.com/photo-1595526114101-112dfd9f2e30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+  { id: 3, type: 'executive', name: 'Executive Suite', tag: 'Premium', desc: 'The ultimate hostel experience with AC, mini-fridge and large space.', price: 750, period: 'month', status: 'full', stock: 0, icon: '👑', bg: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+  { id: 4, type: 'single', name: 'Premium Single', tag: 'Self Contained', desc: 'A larger single room situated on the top floor with better views.', price: 500, period: 'month', status: 'limited', stock: 1, icon: '🛏️', bg: 'https://images.unsplash.com/photo-1582719478250-c89404bb8a0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+  { id: 5, type: 'double', name: 'Deluxe Double', tag: 'Shared Suite', desc: 'Spacious double room with individual study areas and wardrobes.', price: 320, period: 'person', status: 'available', stock: 8, icon: '🛏️🛏️', bg: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+  { id: 6, type: 'single', name: 'Economy Single', tag: 'Self Contained', desc: 'Compact, budget-friendly private room without compromising quality.', price: 380, period: 'month', status: 'full', stock: 0, icon: '🛏️', bg: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
+];
+
+let displayedRooms = [...allRooms];
+
+// DOM Elements
+const container = document.getElementById('roomsContainer');
+const summaryBar = document.getElementById('summaryBar');
+
+function renderBadges(status) {
+  if (status === 'available') return `<div class="badge badge-avail">✅ Available</div>`;
+  if (status === 'limited') return `<div class="badge badge-lim">⏳ Few Left</div>`;
+  if (status === 'full') return `<div class="badge badge-full">❌ Fully Booked</div>`;
+}
+
+function renderStock(stock, status) {
+  if (status === 'full') return `<div class="room-stock stock-full">Sold Out</div>`;
+  if (status === 'limited') return `<div class="room-stock stock-lim">Only ${stock} left</div>`;
+  return `<div class="room-stock stock-avail">${stock} rooms left</div>`;
+}
+
+function renderButtons(room) {
+  if (room.status === 'full') {
+    return `
+      <button class="btn-sm-outline">View Details</button>
+      <button class="btn-sm-primary btn-sm-waitlist" onclick="openModal('${room.name} (Waitlist)')">Join Waitlist</button>
+    `;
+  }
+  return `
+    <button class="btn-sm-outline">View Details</button>
+    <button class="btn-sm-primary" onclick="openModal('${room.name}')">Book Now</button>
+  `;
+}
+
+function updateSummary() {
+  const total = allRooms.length * 15; // fake multiplier for total building scale
+  const avail = allRooms.filter(r => r.status === 'available').reduce((acc, r) => acc + r.stock, 0);
+  const lim = allRooms.filter(r => r.status === 'limited').reduce((acc, r) => acc + r.stock, 0);
+  const totalStock = avail + lim;
+  
+  summaryBar.innerHTML = `
+    <div class="summary-item"><div class="summary-val">${total}</div><div class="summary-label">Total Rooms</div></div>
+    <div class="summary-item"><div class="summary-val c-avail">${avail}</div><div class="summary-label">Available</div></div>
+    <div class="summary-item"><div class="summary-val c-lim">${lim}</div><div class="summary-label">Nearly Full</div></div>
+    <div class="summary-item"><div class="summary-val c-full">${total - totalStock}</div><div class="summary-label">Booked</div></div>
+  `;
+}
+
+function renderRooms(rooms) {
+  container.innerHTML = '';
+  
+  if(rooms.length === 0) {
+    container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">No rooms found matching your filters.</p>`;
+    return;
+  }
+
+  rooms.forEach((room, index) => {
+    const delay = index * 0.1;
+    const card = document.createElement('div');
+    card.className = 'room-card reveal active';
+    card.style.animationDelay = `${delay}s`;
+    
+    card.innerHTML = `
+      <div class="room-img" style="background-image: url('${room.bg}')">
+        ${renderBadges(room.status)}
+        <div class="room-icon">${room.icon}</div>
+      </div>
+      <div class="room-body">
+        <span class="room-type">${room.tag}</span>
+        <h3 class="room-name">${room.name}</h3>
+        <p class="room-desc">${room.desc}</p>
+        <div class="room-price-row">
+          <div class="room-price">GH₵ ${room.price} <span>/ ${room.period}</span></div>
+          ${renderStock(room.stock, room.status)}
+        </div>
+        <div class="card-actions">
+          ${renderButtons(room)}
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function applyFilters() {
+  const type = document.getElementById('filterType').value;
+  const price = parseInt(document.getElementById('filterPrice').value);
+  const status = document.getElementById('filterStatus').value;
+  
+  displayedRooms = allRooms.filter(room => {
+    let matchType = type === 'all' || room.type === type;
+    let matchPrice = room.price <= price;
+    let matchStatus = status === 'all' || room.status === status;
+    return matchType && matchPrice && matchStatus;
+  });
+  
+  renderRooms(displayedRooms);
+  simulateUpdate();
+}
+
+function resetFilters() {
+  document.getElementById('filterType').value = 'all';
+  document.getElementById('filterPrice').value = '1000';
+  document.getElementById('filterStatus').value = 'all';
+  applyFilters();
+}
+
+function simulateUpdate() {
+  const indicator = document.querySelector('.live-indicator');
+  indicator.innerHTML = '<span class="pulse-dot"></span> Updating...';
+  setTimeout(() => {
+    indicator.innerHTML = '<span class="pulse-dot"></span> Updated just now';
+  }, 800);
+}
+
+// Nav interaction
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.background = window.scrollY > 50 
+    ? 'rgba(10,10,15,0.98)' 
+    : 'linear-gradient(to bottom, rgba(10,10,15,0.95), transparent)';
+});
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// Modal handling
+const modal = document.getElementById('bookingModal');
+const rInput = document.getElementById('modalRoomType');
+const title = document.getElementById('modalTitle');
+function openModal(roomName) {
+  modal.classList.add('active');
+  rInput.value = roomName;
+  if(roomName.includes('Waitlist')) {
+    title.innerText = 'Join Waitlist';
+  } else {
+    title.innerText = 'Book an Accommodation';
+  }
+}
+function closeModal() { modal.classList.remove('active'); }
+function closeOnOverlay(e) { if(e.target === modal) closeModal(); }
+
+// Intersection Observer for core page reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  updateSummary();
+  renderRooms(displayedRooms);
+  
+  // Fake live ticker
+  setInterval(simulateUpdate, 30000);
+});
+
+function loadMore() {
+  alert("In a production environment, this would fetch more rooms from the database!");
+}
+</script>
+
+</body>
+</html>

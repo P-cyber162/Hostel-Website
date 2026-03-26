@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | Premium Tower Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.12);
+  --dark: #0A0A0F;
+  --dark-2: #111118;
+  --dark-3: #1A1A24;
+  --cream: #F5F0E8;
+  --text-muted: rgba(245,240,232,0.5);
+  --nav-h: 80px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--dark);
+  color: var(--cream);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .cormorant { font-family: 'Cormorant Garamond', serif; }
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: var(--transition); }
+
+em { font-style: italic; color: var(--gold); font-weight: 600; }
+
+/* Navbar */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid var(--gold-border);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 60px;
+  transition: var(--transition);
+}
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); }
+.logo span { color: var(--cream); font-weight: 300; }
+
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; font-weight: 400; }
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+
+.nav-button {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+  padding: 10px 24px; border-radius: 2px; font-size: 0.78rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.nav-button:hover { background: var(--gold); color: var(--dark); }
+.hamburger { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; z-index: 101; }
+
+.btn-primary {
+  background: var(--gold); color: var(--dark);
+  padding: 16px 40px; border-radius: 2px; font-weight: 500;
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
+  display: inline-block; text-align: center;
+}
+.btn-primary:hover {
+  background: var(--gold-light); transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(201,168,76,0.3);
+}
+
+.btn-outline {
+  background: transparent; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  padding: 16px 40px; border-radius: 2px; font-weight: 500;
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
+  display: inline-block; text-align: center;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Globals & Utilities */
+.section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.section-heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+.section-subtext { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
+
+/* Page Header */
+.page-header {
+  padding: calc(var(--nav-h) + 80px) 60px 40px;
+  position: relative;
+  text-align: center;
+  background: 
+    radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 60%),
+    var(--dark);
+}
+
+/* 1. Intro Section */
+.about-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; padding: 60px; max-width: 1400px; margin: 0 auto;
+}
+.about-intro-text { padding-right: 40px; }
+.about-intro-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.8; }
+.about-intro-img {
+  position: relative; border-radius: 4px; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.about-intro-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,15,0.4), transparent);
+  pointer-events: none;
+}
+.about-intro-img img {
+  width: 100%; height: 600px; object-fit: cover; display: block;
+  transition: transform 1.5s ease;
+}
+.about-intro-img:hover img { transform: scale(1.05); }
+
+/* 2. Our Story Section */
+.story-section {
+  background-color: var(--dark-2);
+  padding: 100px 60px;
+  position: relative;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  position: relative;
+}
+.story-section::before {
+  content: ''; position: absolute; inset: 0; background: rgba(17,17,24,0.95); z-index: 0;
+}
+.story-container { max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.gold-divider { width: 40px; height: 1px; background-color: var(--gold); margin: 30px auto; }
+.story-container p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 24px; }
+
+/* 3. Core Values */
+.values-section { padding: 100px 60px; max-width: 1400px; margin: 0 auto; }
+.values-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px; margin-top: 60px;
+}
+.value-card {
+  background: var(--dark-2); padding: 50px 40px; border-radius: 4px;
+  border: 1px solid var(--gold-border);
+  transition: var(--transition); text-align: center;
+}
+.value-card:hover { transform: translateY(-10px); border-color: var(--gold); background: var(--dark-3); }
+.value-icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 24px; }
+.value-card h3 { font-size: 1.5rem; margin-bottom: 16px; color: var(--cream); }
+.value-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+/* 4. What Makes Us Different */
+.diff-section { padding: 100px 60px; background-color: var(--dark-3); }
+.diff-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1400px; margin: 0 auto; }
+.diff-list { list-style: none; margin-top: 40px; }
+.diff-list li {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  font-size: 1.1rem; color: var(--cream);
+}
+.diff-list li svg { width: 24px; height: 24px; fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.diff-image {
+  border-radius: 4px; overflow: hidden; box-shadow: -20px 20px 0 var(--gold-dim);
+}
+.diff-image img { width: 100%; height: 500px; object-fit: cover; display: block; }
+
+/* 5. Stats Section */
+#stats {
+  display: flex; border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border);
+  background: var(--dark-2); padding: 60px; flex-wrap: wrap; justify-content: space-around; gap: 40px;
+}
+.stat-item { text-align: center; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 4.5rem); color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+
+/* 6. Gallery Preview Strip */
+.gallery-section { padding: 80px 0; overflow: hidden; }
+.gallery-header { padding: 0 60px; margin-bottom: 40px; text-align: center; }
+.gallery-track {
+  display: flex; gap: 20px; padding: 0 60px; width: max-content;
+  /* Optional: Could animate horizontal scroll, currently native smooth scroll */
+  overflow-x: auto; scroll-snap-type: x mandatory; 
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-item {
+  scroll-snap-align: start; flex: 0 0 400px; height: 500px; border-radius: 4px; overflow: hidden; position: relative;
+  cursor: pointer;
+}
+.gallery-item::after {
+  content: ''; position: absolute; inset: 0; background: rgba(10,10,15,0.2); transition: var(--transition);
+}
+.gallery-item:hover::after { background: transparent; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;
+}
+.gallery-item:hover img { transform: scale(1.08); }
+
+/* 7. CTA Section */
+#cta {
+  padding: 120px 60px; text-align: center; background: radial-gradient(circle at center, var(--dark-2) 0%, var(--dark) 100%);
+  position: relative;
+}
+#cta::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(to right, rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size: 60px 60px; z-index: 0;
+}
+#cta > * { position: relative; z-index: 1; }
+.hero-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 40px; }
+
+/* Footer */
+footer { padding: 80px 60px 40px; background: var(--dark-2); border-top: 1px solid var(--gold-border); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand { margin-bottom: 20px; display: inline-block; }
+.footer-col h4 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 24px; }
+.footer-col p, .footer-col a { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: block; }
+.footer-col a:hover { color: var(--gold); padding-left: 4px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 40px; border-top: 1px solid rgba(245,240,232,0.05); color: var(--text-muted); font-size: 0.85rem; }
+.socials { display: flex; gap: 16px; }
+.social-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--text-muted); border-radius: 50%; color: var(--cream); font-size: 0.8rem; }
+.social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Reveal Animations */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  nav { padding: 0 30px; }
+  .nav-links, .nav-button { display: none; }
+  .hamburger { display: block; }
+  .about-intro, .diff-container { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .page-header, .about-intro, .story-section, .values-section, .diff-section, #stats, .gallery-header, .gallery-track, #cta, footer { padding-left: 20px; padding-right: 20px; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-outline { width: 100%; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .gallery-item { flex: 0 0 85vw; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">Premium <span>Tower Palace</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="availability.html">Availability</a>
+    <a href="#">Contact</a>
+    <a href="#">Assistance</a>
+  </div>
+  <button class="nav-button" onclick="window.location.href='index.html#rooms'">Book Now</button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+</nav>
+
+<header class="page-header reveal">
+  <span class="section-tag">About Us</span>
+  <h1 class="section-heading">Redefining <em>Hostel Living</em></h1>
+</header>
+
+<!-- 1. Intro Section -->
+<section class="about-intro">
+  <div class="about-intro-text reveal">
+    <p>Premium Tower Palace was founded on the belief that student living shouldn't mean compromising on comfort. Located conveniently near campus, our facility blends student-friendly luxury with the serenity required for academic excellence.</p>
+    <p>Every corner is meticulously designed to provide a productive environment, ensuring that your transition into higher education is smooth, secure, and incredibly comfortable.</p>
+  </div>
+  <div class="about-intro-img reveal">
+    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Premium Tower Palace Interior" loading="lazy">
+  </div>
+</section>
+
+<!-- 2. Our Story Section -->
+<section class="story-section">
+  <div class="story-container reveal">
+    <h2 class="section-heading">Our <em>Story</em></h2>
+    <div class="gold-divider"></div>
+    <p>The vision for Premium Tower Palace emerged from firsthand experiences of the challenges students face with off-campus housing. Overcrowded rooms, unreliable utilities, and security concerns often distract from what truly matters—education and personal growth.</p>
+    <p>We set out to change the narrative. By combining luxury hotel standards with the communal spirit of hostel life, we built a sanctuary where peace of mind is guaranteed. Today, Premium Tower Palace stands as a testament to modern student accommodation—where comfort, safety, and community intersect.</p>
+  </div>
+</section>
+
+<!-- 3. Core Values -->
+<section class="values-section">
+  <div style="text-align: center;" class="reveal">
+    <span class="section-tag">Our Philosophy</span>
+    <h2 class="section-heading">Core <em>Values</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <div class="value-icon">✧</div>
+      <h3>Comfort & Class</h3>
+      <p>Beautifully designed spaces equipped with modern furnishings that prioritize your relaxation and well-being.</p>
+    </div>
+    <div class="value-card reveal" style="transition-delay: 0.1s;">
+      <div class="value-icon">⚲</div>
+      <h3>Security & Privacy</h3>
+      <p>24/7 security personnel and surveillance systems ensuring a safe environment for your absolute peace of mind.</p>
+    </div>
+    <div class="value-card reveal" style="transition-delay: 0.2s;">
+      <div class="value-icon">⏱</div>
+      <h3>Convenience</h3>
+      <p>Proximity to campus, uninterrupted power, and continuous water supply designed to support a seamless daily routine.</p>
+    </div>
+    <div class="value-card reveal" style="transition-delay: 0.3s;">
+      <div class="value-icon">⚄</div>
+      <h3>Community Living</h3>
+      <p>Spaces crafted to foster collaboration, study groups, and lifelong connections among peers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. What Makes Us Different -->
+<section class="diff-section">
+  <div class="diff-container">
+    <div class="diff-image reveal">
+      <img src="https://images.unsplash.com/photo-1522771731470-cea131e53f49?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Student study area" loading="lazy">
+    </div>
+    <div class="diff-content reveal">
+      <span class="section-tag">The Premium Edge</span>
+      <h2 class="section-heading">What Makes Us <em>Different</em></h2>
+      <ul class="diff-list">
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Fully furnished modern rooms
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          24/7 uninterrupted water & electricity
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          High-speed Wi-Fi across all areas
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Highly secure, fenced, and guarded environment
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Close proximity to the university campus
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Stats Section -->
+<div id="stats">
+  <div class="stat-item reveal"><div class="stat-num">200+</div><div class="stat-label">Students Hosted</div></div>
+  <div class="stat-item reveal" style="transition-delay: 0.1s;"><div class="stat-num">5</div><div class="stat-label">Star Experience</div></div>
+  <div class="stat-item reveal" style="transition-delay: 0.2s;"><div class="stat-num">24/7</div><div class="stat-label">Ongoing Support</div></div>
+  <div class="stat-item reveal" style="transition-delay: 0.3s;"><div class="stat-num">100%</div><div class="stat-label">Secure facility</div></div>
+</div>
+
+<!-- 6. Gallery Preview Strip -->
+<section class="gallery-section reveal">
+  <div class="gallery-header">
+    <span class="section-tag">Visuals</span>
+    <h2 class="section-heading">A Glimpse of <em>Luxury</em></h2>
+  </div>
+  <div class="gallery-track">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bedroom" loading="lazy"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595526114101-112dfd9f2e30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lounge Area" loading="lazy"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Study Desk" loading="lazy"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Balcony View" loading="lazy"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1598928506311-c55dedbfc1f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bathroom" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- 7. CTA Section -->
+<section id="cta" class="reveal">
+  <h2 class="section-heading cormorant">Experience Premium Living <em>Today</em></h2>
+  <p class="section-subtext" style="color:var(--text-muted); margin: 0 auto;">Take the next step towards an exceptional academic journey.</p>
+  <div class="hero-buttons">
+    <button class="btn-primary" onclick="window.location.href='index.html#rooms'">Check Availability</button>
+    <button class="btn-outline" onclick="window.location.href='index.html#rooms'">Book Now</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col" style="grid-column: span 1.5;">
+      <a href="index.html" class="logo footer-brand">Premium <span>Tower Palace</span></a>
+      <p>Elevating student and young professional living with premium amenities, unbeatable safety, and community focus.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="index.html">Homepage</a>
+      <a href="about.html">About Us</a>
+      <a href="index.html#rooms">Room Types</a>
+      <a href="#">Availability</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="index.html#rooms">Online Booking</a>
+      <a href="#">Live Assistance</a>
+      <a href="#">Admin Portal</a>
+      <a href="#">Room Tours</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <p>📞 +233 55 000 0000</p>
+      <p>✉️ hello@premiumtower.com</p>
+      <p>📍 View on Map</p>
+      <p>💬 WhatsApp Us</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="copyright">&copy; 2026 Premium Tower Palace. All rights reserved.</div>
+    <div class="socials">
+      <a href="#" class="social-btn">Ig</a>
+      <a href="#" class="social-btn">Tw</a>
+      <a href="#" class="social-btn">Fb</a>
+      <a href="#" class="social-btn">In</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.background = window.scrollY > 50 
+    ? 'rgba(10,10,15,0.98)' 
+    : 'linear-gradient(to bottom, rgba(10,10,15,0.95), transparent)';
+});
+
+// Mobile Nav Toggle (Simplified for secondary page)
+function toggleMobileNav() {
+  alert("Mobile nav toggled (Add actual menu HTML here if full menu needed)");
+}
+
+// Scroll Reveal Observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+document.querySelectorAll('.reveal').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
