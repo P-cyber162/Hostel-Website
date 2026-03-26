@@ -222,10 +222,10 @@ footer { padding: 80px 60px 40px; background: var(--dark-2); border-top: 1px sol
     <a href="contact.html">Contact</a>
     <a href="assistance.html">Assistance</a>
   </div>
-  <button class="nav-button" onclick="openModal('General')">Book Now</button>
+  <button class="nav-button" onclick="window.location.href='booking.html'">Book Now</button>
   <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
   <div class="nav-menu-mobile" id="mobileNav">
-    <a href="#" class="nav-button" onclick="openModal('General'); toggleMobileNav()" style="display:block; text-align:center; margin-bottom:16px;">Book Now</a>
+    <a href="booking.html" class="nav-button" style="display:block; text-align:center; margin-bottom:16px;">Book Now</a>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="availability.html" class="active">Availability</a>
@@ -297,7 +297,7 @@ footer { padding: 80px 60px 40px; background: var(--dark-2); border-top: 1px sol
     <h2 class="section-heading cormorant">Secure Your Space <em>Before It's Gone</em></h2>
     <p class="section-subtext" style="color:var(--text-muted); margin-bottom: 40px;">Spots fill up fast before the semester begins.</p>
     <div class="hero-buttons">
-      <button class="btn-primary" onclick="openModal('General')">Check Availability</button>
+      <button class="btn-primary" onclick="window.location.href='booking.html'">Check Availability</button>
       <button class="btn-outline">Contact Us</button>
     </div>
   </div>
@@ -329,25 +329,7 @@ footer { padding: 80px 60px 40px; background: var(--dark-2); border-top: 1px sol
   </div>
 </footer>
 
-<!-- Modal -->
-<div class="modal-overlay" id="bookingModal" onclick="closeOnOverlay(event)">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3 class="cormorant" id="modalTitle" style="font-size: 2rem; color: var(--cream); margin-bottom: 8px;">Book a Room</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Fill out the form to reserve your space.</p>
-    
-    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Selected Room</label>
-    <input type="text" class="form-input" id="modalRoomType" readonly>
-    
-    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Full Name</label>
-    <input type="text" class="form-input" placeholder="Your Name">
-    
-    <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Email / Phone</label>
-    <input type="text" class="form-input" placeholder="Contact Detail">
-    
-    <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="closeModal(); alert('Request sent!')">Submit Request</button>
-  </div>
-</div>
+
 
 <script>
 // Mock Data
@@ -382,12 +364,12 @@ function renderButtons(room) {
   if (room.status === 'full') {
     return `
       <button class="btn-sm-outline">View Details</button>
-      <button class="btn-sm-primary btn-sm-waitlist" onclick="openModal('${room.name} (Waitlist)')">Join Waitlist</button>
+      <button class="btn-sm-primary btn-sm-waitlist" onclick="window.location.href='booking.html?room=${room.type}'">Join Waitlist</button>
     `;
   }
   return `
     <button class="btn-sm-outline">View Details</button>
-    <button class="btn-sm-primary" onclick="openModal('${room.name}')">Book Now</button>
+    <button class="btn-sm-primary" onclick="window.location.href='booking.html?room=${room.type}'">Book Now</button>
   `;
 }
 
@@ -483,21 +465,7 @@ function toggleMobileNav() {
   document.getElementById('mobileNav').classList.toggle('open');
 }
 
-// Modal handling
-const modal = document.getElementById('bookingModal');
-const rInput = document.getElementById('modalRoomType');
-const title = document.getElementById('modalTitle');
-function openModal(roomName) {
-  modal.classList.add('active');
-  rInput.value = roomName;
-  if(roomName.includes('Waitlist')) {
-    title.innerText = 'Join Waitlist';
-  } else {
-    title.innerText = 'Book an Accommodation';
-  }
-}
-function closeModal() { modal.classList.remove('active'); }
-function closeOnOverlay(e) { if(e.target === modal) closeModal(); }
+
 
 // Intersection Observer for core page reveals
 const observer = new IntersectionObserver((entries) => {
@@ -526,3 +494,5 @@ function loadMore() {
 
 </body>
 </html>
+
+

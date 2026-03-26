@@ -505,10 +505,10 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
     <a href="contact.html">Contact</a>
     <a href="assistance.html">Assistance</a>
   </div>
-  <button class="nav-button" onclick="openModal()">Book Now</button>
+  <button class="nav-button" onclick="window.location.href='booking.html'">Book Now</button>
   <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
   <div class="nav-menu-mobile" id="mobileNav">
-    <a href="#" class="nav-button" onclick="openModal(); toggleMobileNav()" style="display:block; text-align:center; margin-bottom:16px;">Book Now</a>
+    <a href="booking.html" class="nav-button" style="display:block; text-align:center; margin-bottom:16px;">Book Now</a>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="availability.html">Availability</a>
@@ -520,11 +520,11 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
 <section id="hero">
   <!-- Slideshow -->
   <div class="slider" id="heroSlider">
-    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89404bb8a0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1600&q=80');"></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1630699144867-37acec97df5a?w=1600&q=80');"></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?w=1600&q=80');"></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');"></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1600&q=80');"></div>
   </div>
   
   <div class="vignette"></div>
@@ -535,7 +535,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
     <h1 class="hero-h1">Premium<br><strong>Tower Palace</strong></h1>
     <div class="hero-tagline">Comfort <span class="dot">·</span> Class <span class="dot">·</span> Convenience</div>
     <div class="hero-buttons">
-      <button class="btn-primary" onclick="openModal()">Check Availability</button>
+      <button class="btn-primary" onclick="window.location.href='availability.html'">Check Availability</button>
       <a href="#rooms" class="btn-outline" style="display:inline-flex; align-items:center; justify-content:center;">View Rooms</a>
     </div>
   </div>
@@ -604,7 +604,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
         <div class="room-price">GH₵ 450 <span>/ month</span></div>
         <div class="room-footer">
           <div class="room-features">Private Bath • Study Desk</div>
-          <button class="btn-book-sm" onclick="openModal()">Book Now</button>
+          <button class="btn-book-sm" onclick="window.location.href='booking.html?room=single'">Book Now</button>
         </div>
       </div>
     </div>
@@ -621,7 +621,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
         <div class="room-price">GH₵ 280 <span>/ person</span></div>
         <div class="room-footer">
           <div class="room-features">Shared Bath • Study Desk</div>
-          <button class="btn-book-sm" onclick="openModal()">Book Now</button>
+          <button class="btn-book-sm" onclick="window.location.href='booking.html?room=double'">Book Now</button>
         </div>
       </div>
     </div>
@@ -638,7 +638,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
         <div class="room-price">GH₵ 750 <span>/ month</span></div>
         <div class="room-footer">
           <div class="room-features">En-Suite • AC</div>
-          <button class="btn-book-sm" onclick="openModal()">Book Now</button>
+          <button class="btn-book-sm" onclick="window.location.href='booking.html?room=executive'">Book Now</button>
         </div>
       </div>
     </div>
@@ -692,7 +692,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
   <h2 class="section-heading cormorant">Secure Your Space <em>Today</em></h2>
   <p class="section-subtext" style="color:var(--text-muted)">Limited rooms available. Don't miss out.</p>
   <div class="hero-buttons">
-    <button class="btn-primary" onclick="openModal()">Book a Room</button>
+    <button class="btn-primary" onclick="window.location.href='booking.html'">Book a Room</button>
     <a href="contact.html" class="btn-outline" style="display:inline-flex; align-items:center; justify-content:center;">Contact Us</a>
   </div>
 </section>
@@ -712,7 +712,7 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="#" onclick="openModal()">Online Booking</a>
+      <a href="booking.html">Online Booking</a>
       <a href="#">Live Assistance</a>
       <a href="#">Admin Portal</a>
       <a href="#">Room Tours</a>
@@ -738,59 +738,9 @@ footer { background: var(--dark-2); padding: 60px 60px 36px; border-top: 1px sol
   </div>
 </footer>
 
-<button class="chat-fab" onclick="openModal()">💬</button>
+<button class="chat-fab" onclick="window.location.href='assistance.html'">💬</button>
 
-<div class="modal-overlay" id="bookingModal" onclick="closeOnOverlay(event)">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    
-    <div id="bookingFormContainer">
-      <h3 class="cormorant">Reserve Your Room</h3>
-      <p>Fill out the form below to initiate your booking.</p>
-      
-      <form id="bookingForm" onsubmit="submitBooking(event)">
-        <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" required placeholder="John Doe">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input type="tel" class="form-input" required placeholder="+233 ...">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" required placeholder="john@example.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Room Type</label>
-            <select class="form-input" required>
-              <option value="" disabled selected>Select a room</option>
-              <option value="single">Single Room (GH₵450)</option>
-              <option value="double">Double Room (GH₵280)</option>
-              <option value="executive">Executive Room (GH₵750)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Move-in Date</label>
-            <input type="date" class="form-input" required>
-          </div>
-        </div>
-        <button type="submit" class="btn-submit">Submit Booking Request</button>
-      </form>
-    </div>
-    
-    <div id="successState" class="success-state">
-      <div class="success-icon">✓</div>
-      <h3 class="cormorant">Booking Request Received</h3>
-      <p>We'll contact you within 24 hours to confirm your room.</p>
-      <button class="btn-submit" onclick="closeModal()">Close Window</button>
-    </div>
-    
-  </div>
-</div>
+
 
 <script>
 // Navbar Scroll Effect
@@ -809,37 +759,7 @@ function toggleMobileNav() {
   btn.innerText = menu.classList.contains('open') ? '✕' : '☰';
 }
 
-// Modal Functions
-const modal = document.getElementById('bookingModal');
-const formContainer = document.getElementById('bookingFormContainer');
-const successState = document.getElementById('successState');
-const bgForm = document.getElementById('bookingForm');
 
-function openModal() {
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  // Reset form state on open
-  formContainer.style.display = 'block';
-  successState.style.display = 'none';
-  bgForm.reset();
-}
-
-function closeModal() {
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function closeOnOverlay(e) {
-  if (e.target === modal) {
-    closeModal();
-  }
-}
-
-function submitBooking(e) {
-  e.preventDefault();
-  formContainer.style.display = 'none';
-  successState.style.display = 'block';
-}
 
 // Scroll Reveal Observer
 const observer = new IntersectionObserver((entries) => {
@@ -921,3 +841,4 @@ resetProgress();
 
 </body>
 </html>
+

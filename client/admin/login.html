@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Premium Tower Palace</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --dark: #0A0A0F;
+  --dark-2: #111118;
+  --dark-3: #1A1A24;
+  --cream: #F5F0E8;
+  --text-muted: rgba(245,240,232,0.5);
+  --error-red: #C94C4C;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--dark);
+  color: var(--cream);
+  line-height: 1.6;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3, .cormorant { font-family: 'Cormorant Garamond', serif; }
+em { font-style: italic; color: var(--gold); font-weight: 600; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: var(--transition); }
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+/* Left Panel - Branding */
+.panel-brand {
+  position: relative;
+  background: var(--dark-3);
+  border-right: 1px solid rgba(201,168,76,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Layers */
+.layer-grid {
+  position: absolute; inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+  z-index: 1;
+}
+
+.layer-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06), transparent);
+  z-index: 2;
+}
+
+.layer-grain {
+  position: absolute; inset: -50%; width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: grain 0.5s steps(1) infinite;
+  z-index: 3;
+}
+
+@keyframes grain {
+  0%,100%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)}
+  20%{transform:translate(-4%,2%)} 30%{transform:translate(3%,-1%)}
+  40%{transform:translate(-1%,4%)} 50%{transform:translate(-3%,1%)}
+  60%{transform:translate(4%,0)} 70%{transform:translate(-2%,3%)}
+  80%{transform:translate(2%,-2%)} 90%{transform:translate(-3%,2%)}
+}
+
+.brand-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.brand-eyebrow::before, .brand-eyebrow::after {
+  content: ""; display: block; width: 30px; height: 1px; background: var(--gold);
+}
+
+.brand-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.brand-h1 strong { display: block; font-style: italic; color: var(--gold); font-weight: 600; }
+
+.brand-hr { width: 40px; height: 1px; background: var(--gold); margin: 0 auto 24px; }
+.brand-sub { font-size: 0.82rem; color: var(--text-muted); }
+
+/* Right Panel - Login */
+.panel-login {
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.login-card {
+  max-width: 420px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
+}
+
+.login-header { text-align: center; margin-bottom: 40px; }
+.lock-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  margin: 0 auto 20px;
+}
+.login-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--cream); margin-bottom: 8px; }
+.login-sub { font-size: 0.82rem; color: var(--text-muted); }
+
+/* Form Fields */
+.form-group { margin-bottom: 20px; position: relative; }
+.form-label {
+  display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+
+.input-wrap { position: relative; }
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 2px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-input:focus { border-color: rgba(201,168,76,0.5); }
+.form-input::placeholder { color: rgba(245,240,232,0.3); }
+
+/* Password Toggle */
+.pwd-toggle {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--text-muted); font-size: 0.9rem; padding: 4px;
+}
+.pwd-toggle:hover { color: var(--gold); }
+
+/* Button */
+.btn-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 16px;
+  border-radius: 2px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+.btn-submit:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(201,168,76,0.3);
+}
+
+.login-error {
+  display: none;
+  color: var(--error-red);
+  font-size: 0.82rem;
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 10px;
+  background: rgba(201,76,76,0.1);
+  border: 1px solid rgba(201,76,76,0.2);
+  border-radius: 2px;
+}
+
+.login-footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; }
+.footer-text { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 16px; display: block; }
+.back-link { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.05em; }
+.back-link:hover { text-decoration: underline; }
+
+/* Mobile Logo (Shown only on small screens) */
+.mobile-logo {
+  display: none; text-align: center; margin-bottom: 40px;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); font-weight: 600;
+}
+.mobile-logo span { color: var(--cream); font-weight: 300; }
+
+@media (max-width: 768px) {
+  .layout-grid { grid-template-columns: 1fr; }
+  .panel-brand { display: none; }
+  .panel-login { padding: 40px 24px; align-items: flex-start; overflow-y: auto; }
+  .login-card { max-width: 100%; padding: 0; margin-top: 40px; }
+  .mobile-logo { display: block; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="layout-grid">
+  <!-- Left Branding Panel -->
+  <div class="panel-brand">
+    <div class="layer-grid"></div>
+    <div class="layer-glow"></div>
+    <div class="layer-grain"></div>
+    
+    <div class="brand-content">
+      <div class="brand-eyebrow">Administration Portal</div>
+      <h1 class="brand-h1">Premium<br><strong>Tower Palace</strong></h1>
+      <div class="brand-hr"></div>
+      <div class="brand-sub">Secure access for authorized personnel only.</div>
+    </div>
+  </div>
+
+  <!-- Right Login Panel -->
+  <div class="panel-login">
+    <div class="login-card" id="loginCard">
+      <div class="mobile-logo">Premium <br><span>Tower Palace</span></div>
+      
+      <div class="login-header">
+        <div class="lock-icon">🔒</div>
+        <h2 class="login-title">Welcome Back</h2>
+        <div class="login-sub">Sign in to manage Premium Tower Palace</div>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="emailInput" class="form-input" placeholder="admin@premiumtowerpalace.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="passwordInput" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="pwd-toggle" onclick="togglePassword()" aria-label="Toggle password visibility">👁</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Sign In to Dashboard</button>
+        
+        <div class="login-error" id="loginError">
+          ⚠ Invalid email or password. Please try again.
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <span class="footer-text">Forgot your password? Contact system administrator.</span>
+        <a href="../index.html" class="back-link">← Back to website</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Authentication Logic
+const ADMIN_CREDENTIALS = {
+  email: 'prinzanaxy@gmail.com',
+  password: 'premium@123'
+};
+
+function handleLogin(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('emailInput').value.trim();
+  const password = document.getElementById('passwordInput').value;
+  const loginCard = document.getElementById('loginCard');
+  const errorBox = document.getElementById('loginError');
+
+  // Reset state
+  errorBox.style.display = 'none';
+  loginCard.style.animation = 'none';
+
+  if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+    // Store auth token and session expiry in localStorage
+    const expiryTime = Date.now() + (7 * 24 * 60 * 60 * 1000); // 7 days in milliseconds
+    localStorage.setItem('ptp_token', 'ptp_admin_authenticated');
+    localStorage.setItem('ptp_admin', email);
+    localStorage.setItem('ptp_session_expiry', expiryTime);
+    
+    // Redirect to dashboard
+    window.location.href = 'admin.html'; 
+  } else {
+    // Show error + shake animation
+    // Trigger reflow to restart animation
+    void loginCard.offsetWidth;
+    loginCard.style.animation = 'shake 0.4s ease';
+    errorBox.style.display = 'block';
+    
+    setTimeout(() => {
+      loginCard.style.animation = '';
+    }, 400);
+  }
+}
+
+function togglePassword() {
+  const pwd = document.getElementById('passwordInput');
+  const toggle = document.querySelector('.pwd-toggle');
+  if (pwd.type === 'password') {
+    pwd.type = 'text';
+    toggle.textContent = '👁️';
+  } else {
+    pwd.type = 'password';
+    toggle.textContent = '👁';
+  }
+}
+
+document.getElementById('loginForm').addEventListener('submit', handleLogin);
+</script>
+
+</body>
+</html>
