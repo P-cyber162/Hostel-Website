@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistance & Support | Premium Tower Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.12);
+  --dark: #0A0A0F;
+  --dark-2: #111118;
+  --dark-3: #1A1A24;
+  --cream: #F5F0E8;
+  --text-muted: rgba(245,240,232,0.5);
+  --nav-h: 80px;
+  --success: #2ed573;
+  --warning: #feca57;
+  --info: #48dbfb;
+  --danger: #ff4757;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'DM Sans', sans-serif; background-color: var(--dark); color: var(--cream); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4, .cormorant { font-family: 'Cormorant Garamond', serif; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: var(--transition); }
+em { font-style: italic; color: var(--gold); font-weight: 600; }
+
+/* Navbar */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(4px); border-bottom: 1px solid var(--gold-border); display: flex; justify-content: space-between; align-items: center; padding: 0 60px; transition: var(--transition); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); }
+.logo span { color: var(--cream); font-weight: 300; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; font-weight: 400; }
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+.nav-button { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; border-radius: 2px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.nav-button:hover { background: var(--gold); color: var(--dark); }
+.hamburger { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; z-index: 101; }
+.nav-menu-mobile { position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--gold-border); flex-direction: column; padding: 20px 30px; gap: 20px; display: none; }
+.nav-menu-mobile.open { display: flex; }
+
+/* Utilities */
+.btn-primary { background: var(--gold); color: var(--dark); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+.btn-outline { background: transparent; border: 1px solid rgba(245,240,232,0.25); color: var(--cream); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+.section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.section-heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+.section-subtext { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Header & Banner */
+.page-header { padding: calc(var(--nav-h) + 60px) 60px 20px; text-align: center; position: relative; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 60%); }
+.emergency-banner { max-width: 1000px; margin: 0 auto 40px; border: 1px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.05); padding: 20px 40px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; box-shadow: 0 0 20px rgba(201,168,76,0.1); }
+.emergency-banner p { color: var(--gold); font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.emergency-actions { display: flex; gap: 16px; }
+.btn-whatsapp { background: rgba(46, 213, 115, 0.15); color: var(--success); border: 1px solid rgba(46, 213, 115, 0.3); padding: 12px 24px; border-radius: 2px; font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition); display: inline-block; cursor: pointer; }
+.btn-whatsapp:hover { background: rgba(46, 213, 115, 0.25); border-color: var(--success); box-shadow: 0 4px 15px rgba(46,213,115,0.2); }
+
+/* Quick Action Cards */
+.quick-actions { max-width: 1000px; margin: 0 auto 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; padding: 0 20px;}
+.action-card { background: var(--dark-2); border: 1px solid rgba(245,240,232,0.05); padding: 30px 20px; border-radius: 6px; text-align: center; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; overflow: hidden;}
+.action-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, var(--gold-dim) 0%, transparent 70%); opacity: 0; transition: var(--transition); pointer-events: none;}
+.action-card:hover { transform: translateY(-5px); border-color: var(--gold); background: var(--dark-3); }
+.action-card:hover::before { opacity: 1; }
+.action-icon { font-size: 2rem; position: relative; z-index: 1; }
+.action-title { font-size: 1.1rem; color: var(--cream); font-family: 'Cormorant Garamond', serif; position: relative; z-index: 1;}
+
+/* Main Layout (Form + History) */
+.support-wrapper { max-width: 1200px; margin: 0 auto 80px; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+/* Form Styled */
+.form-card { background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); border: 1px solid var(--gold-border); padding: 40px; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.form-card h3 { font-size: 1.8rem; margin-bottom: 8px; }
+.form-card > p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px; }
+
+.form-group { margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 14px 16px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s; }
+.form-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+select.form-input { appearance: none; }
+select.form-input option { background: var(--dark-2); color: var(--cream); }
+textarea.form-input { resize: vertical; min-height: 120px; }
+
+/* Upload Area */
+.upload-area { border: 2px dashed rgba(255,255,255,0.1); border-radius: 4px; padding: 30px; text-align: center; cursor: pointer; transition: var(--transition); background: rgba(255,255,255,0.01); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative;}
+.upload-area:hover, .upload-area.dragover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.upload-icon { font-size: 1.5rem; color: var(--text-muted); transition: var(--transition); }
+.upload-area:hover .upload-icon { color: var(--gold); }
+.upload-text { font-size: 0.85rem; color: var(--text-muted); }
+.upload-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.preview-container { display: none; margin-top: 15px; width: 100%; border-radius: 4px; overflow: hidden; position: relative; }
+.preview-image { width: 100%; max-height: 150px; object-fit: cover; }
+.remove-preview { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; }
+
+/* Loading & Success states */
+.loading-spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(10,10,15,0.3); border-top-color: var(--dark); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.success-msg { display: none; background: rgba(46, 213, 115, 0.1); border: 1px solid rgba(46, 213, 115, 0.2); padding: 20px; border-radius: 4px; margin-top: 20px; color: var(--success); font-weight: 500; font-size: 0.9rem; align-items: center; gap: 10px; }
+
+/* History Section */
+.history-section { display: flex; flex-direction: column; }
+.history-section h3 { font-size: 1.8rem; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+.history-count { font-family: 'DM Sans'; font-size: 0.8rem; background: var(--gold-dim); color: var(--gold); padding: 4px 10px; border-radius: 20px; }
+.history-list { display: flex; flex-direction: column; gap: 16px; max-height: 700px; overflow-y: auto; padding-right: 10px; }
+.history-list::-webkit-scrollbar { width: 6px; }
+.history-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+.history-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+.history-list::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+.history-card { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 20px; transition: var(--transition); border-left: 3px solid transparent; }
+.history-card:hover { background: var(--dark-3); border-color: rgba(255,255,255,0.1); border-left-color: var(--gold); }
+.hc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.hc-title { font-weight: 500; color: var(--cream); font-size: 1.05rem; margin-bottom: 4px;}
+.hc-date { font-size: 0.75rem; color: var(--text-muted); }
+.hc-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Badge styles */
+.status-badge { font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.status-pending { background: rgba(254, 202, 87, 0.1); color: var(--warning); border: 1px solid rgba(254, 202, 87, 0.2); }
+.status-progress { background: rgba(72, 219, 251, 0.1); color: var(--info); border: 1px solid rgba(72, 219, 251, 0.2); }
+.status-resolved { background: rgba(46, 213, 115, 0.1); color: var(--success); border: 1px solid rgba(46, 213, 115, 0.2); }
+
+/* CTA Section */
+#cta { padding: 100px 60px; text-align: center; background: radial-gradient(circle at center, var(--dark-2) 0%, var(--dark) 100%); border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border); }
+
+/* Footer */
+footer { padding: 80px 60px 40px; background: var(--dark-2); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand { margin-bottom: 20px; display: inline-block; }
+.footer-col h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 24px; }
+.footer-col a, .footer-col p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: block; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  nav { padding: 0 30px; } .nav-links, .nav-button { display: none; } .hamburger { display: block; }
+  .support-wrapper { grid-template-columns: 1fr; }
+  .history-list { max-height: 400px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .support-wrapper { padding: 0 20px; }
+  .form-card { padding: 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">Premium <span>Tower Palace</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html">Availability</a>
+    <a href="contact.html">Contact</a>
+    <a href="assistance.html" class="active">Assistance</a>
+  </div>
+  <button class="nav-button" onclick="alert('Booking portal opened')">Book Now</button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+  <div class="nav-menu-mobile" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html">Availability</a>
+    <a href="contact.html">Contact</a>
+    <a href="assistance.html" class="active">Assistance</a>
+  </div>
+</nav>
+
+<header class="page-header reveal">
+  <span class="section-tag">Resident Support</span>
+  <h1 class="section-heading">Need <em>Assistance?</em></h1>
+  <p class="section-subtext">Report any issue or make a request, and our maintenance team will respond promptly to ensure your comfort.</p>
+  
+  <div class="emergency-banner reveal" style="transition-delay: 0.1s;">
+    <p>⚠️ For urgent or life-threatening issues, contact management immediately at any time.</p>
+    <div class="emergency-actions">
+      <a href="tel:+233550000000" class="btn-outline" style="padding: 12px 24px; font-size:0.75rem;">Call Reception</a>
+      <a href="https://wa.me/233550000000" target="_blank" class="btn-whatsapp">WhatsApp Us</a>
+    </div>
+  </div>
+</header>
+
+<div class="quick-actions reveal" style="transition-delay: 0.2s;">
+  <div class="action-card" onclick="selectIssue('maintenance')">
+    <div class="action-icon">🛠</div>
+    <div class="action-title">Maintenance</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Furniture, Doors, AC</div>
+  </div>
+  <div class="action-card" onclick="selectIssue('utilities')">
+    <div class="action-icon">💡</div>
+    <div class="action-title">Utilities</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Water, Electricity, WiFi</div>
+  </div>
+  <div class="action-card" onclick="selectIssue('cleaning')">
+    <div class="action-icon">🧹</div>
+    <div class="action-title">Cleaning</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Room or Hallway Request</div>
+  </div>
+  <div class="action-card" onclick="selectIssue('complaint')">
+    <div class="action-icon">⚠️</div>
+    <div class="action-title">General</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Noise, Security, Other</div>
+  </div>
+</div>
+
+<div class="support-wrapper">
+  <!-- Left: Form -->
+  <div class="form-card reveal">
+    <h3 class="cormorant">Report an Issue</h3>
+    <p>Fill out the details below to open a new support ticket.</p>
+    
+    <form id="assistanceForm" onsubmit="handleFormSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="fName" required placeholder="Enter your full name">
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Room Number</label>
+          <input type="text" class="form-input" id="fRoom" required placeholder="e.g. Block A, Room 12">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <select class="form-input" id="fPriority">
+            <option value="Low">Low (Routine)</option>
+            <option value="Medium" selected>Medium (Standard)</option>
+            <option value="Urgent">Urgent (Immediate)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Issue Type</label>
+        <select class="form-input" id="fType" required>
+          <option value="" disabled selected>Select an issue category</option>
+          <option value="maintenance">Maintenance (Furniture, Fixtures, AC)</option>
+          <option value="utilities">Utilities (Water, Electricity, WiFi)</option>
+          <option value="cleaning">Cleaning Request</option>
+          <option value="complaint">General Complaint / Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="fDesc" required placeholder="Describe the issue in detail..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Upload Image (Optional)</label>
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Drag & drop an image or click to browse</div>
+          <input type="file" id="fFile" class="upload-input" accept="image/*">
+        </div>
+        <div class="preview-container" id="previewContainer">
+          <button type="button" class="remove-preview" onclick="clearPreview()">✕</button>
+          <img src="" id="imagePreview" class="preview-image" alt="Upload Preview">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;" id="submitBtn">
+        <span class="btn-text">Submit Request</span>
+        <div class="loading-spinner" id="btnSpinner"></div>
+      </button>
+
+      <div class="success-msg" id="successBlock">
+        <span style="font-size: 1.2rem;">✓</span> Your request has been submitted. Our team will look into it shortly.
+      </div>
+    </form>
+  </div>
+
+  <!-- Right: History -->
+  <div class="history-section reveal">
+    <h3 class="cormorant">My Requests <span class="history-count" id="requestCount">3</span></h3>
+    
+    <div class="history-list" id="historyList">
+      <!-- Mock items populated by JS -->
+    </div>
+  </div>
+</div>
+
+<section id="cta" class="reveal">
+  <h2 class="section-heading cormorant">We're Here to Help You Stay <em>Comfortable</em></h2>
+  <p class="section-subtext" style="margin-bottom: 0;">Our dedicated team works around the clock to ensure your living experience at Premium Tower Palace remains flawless.</p>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col" style="grid-column: span 1.5;">
+      <a href="index.html" class="logo footer-brand">Premium <span>Tower Palace</span></a>
+      <p>Elevating student and young professional living with premium amenities, unbeatable safety, and community focus.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="index.html">Homepage</a>
+      <a href="about.html">About Us</a>
+      <a href="availability.html">Availability</a>
+      <a href="assistance.html">Assistance</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <p>📞 +233 55 000 0000</p>
+      <p>✉️ hello@premiumtower.com</p>
+      <p>📍 View on Map</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="copyright">&copy; 2026 Premium Tower Palace. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Mobile Nav logic
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.background = window.scrollY > 50 
+    ? 'rgba(10,10,15,0.98)' 
+    : 'linear-gradient(to bottom, rgba(10,10,15,0.95), transparent)';
+});
+
+// Reveal Observer
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form logic
+function selectIssue(type) {
+  const select = document.getElementById('fType');
+  select.value = type;
+  document.getElementById('assistanceForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  select.focus();
+}
+
+// Image Preview logic
+const fileInput = document.getElementById('fFile');
+const previewContainer = document.getElementById('previewContainer');
+const imagePreview = document.getElementById('imagePreview');
+const uploadArea = document.getElementById('uploadArea');
+
+fileInput.addEventListener('change', function() {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imagePreview.src = e.target.result;
+      previewContainer.style.display = 'block';
+      uploadArea.style.display = 'none';
+    }
+    reader.readAsDataURL(file);
+  }
+});
+function clearPreview() {
+  fileInput.value = "";
+  imagePreview.src = "";
+  previewContainer.style.display = 'none';
+  uploadArea.style.display = 'flex';
+}
+
+// Drag & Drop styles
+uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', (e) => { e.preventDefault(); uploadArea.classList.remove('dragover'); });
+uploadArea.addEventListener('drop', (e) => { e.preventDefault(); uploadArea.classList.remove('dragover'); fileInput.files = e.dataTransfer.files; fileInput.dispatchEvent(new Event('change')); });
+
+// Mock history data
+let myRequests = [
+  { id: 'TKT-1029', title: 'AC Not Cooling Properly', type: 'maintenance', date: 'Oct 24, 2026', status: 'in-progress', desc: 'The AC in Room 14 makes a rattling sound and doesnt cool below 24 degrees.' },
+  { id: 'TKT-1015', title: 'Weekly Room Cleaning', type: 'cleaning', date: 'Oct 18, 2026', status: 'resolved', desc: 'Requesting standard weekly cleaning of the floors and bathroom.' },
+  { id: 'TKT-0982', title: 'No Hot Water', type: 'utilities', date: 'Oct 02, 2026', status: 'resolved', desc: 'The water heater is not turning on when the switch is flipped.' }
+];
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  document.getElementById('requestCount').innerText = myRequests.length;
+  list.innerHTML = '';
+  
+  myRequests.forEach(req => {
+    let badgeClass, badgeText;
+    if(req.status === 'pending'){ badgeClass = 'status-pending'; badgeText = 'Pending'; }
+    if(req.status === 'in-progress'){ badgeClass = 'status-progress'; badgeText = 'In Progress'; }
+    if(req.status === 'resolved'){ badgeClass = 'status-resolved'; badgeText = 'Resolved'; }
+
+    const typeIcons = { 'maintenance': '🛠', 'utilities': '💡', 'cleaning': '🧹', 'complaint': '⚠️' };
+    const icon = typeIcons[req.type] || '📄';
+    
+    list.innerHTML += `
+      <div class="history-card">
+        <div class="hc-header">
+          <div>
+            <div class="hc-title">${icon} ${req.title}</div>
+            <div class="hc-date">Ref: ${req.id} • Submitted ${req.date}</div>
+          </div>
+          <span class="status-badge ${badgeClass}">${badgeText}</span>
+        </div>
+        <div class="hc-desc">${req.desc}</div>
+        <button class="btn-outline" style="padding: 6px 12px; font-size: 0.7rem;">View Response</button>
+      </div>
+    `;
+  });
+}
+
+// Form Submission Simulation
+function handleFormSubmit(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitBtn');
+  const btnText = btn.querySelector('.btn-text');
+  const spinner = document.getElementById('btnSpinner');
+  const successBlock = document.getElementById('successBlock');
+  const form = document.getElementById('assistanceForm');
+  
+  // Loading state
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+  btn.disabled = true;
+  successBlock.style.display = 'none';
+
+  // Simulate API delay
+  setTimeout(() => {
+    // Add to history array
+    const typeSel = document.getElementById('fType');
+    const newReq = {
+      id: 'TKT-' + Math.floor(1000 + Math.random() * 9000),
+      title: typeSel.options[typeSel.selectedIndex].text.split('(')[0].trim(),
+      type: typeSel.value,
+      date: 'Just Now',
+      status: 'pending',
+      desc: document.getElementById('fDesc').value
+    };
+    myRequests.unshift(newReq);
+    renderHistory();
+    
+    // Success state
+    btnText.style.display = 'block';
+    spinner.style.display = 'none';
+    btn.disabled = false;
+    successBlock.style.display = 'flex';
+    
+    // Reset Form
+    form.reset();
+    clearPreview();
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => { successBlock.style.display = 'none'; }, 5000);
+  }, 1500);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', renderHistory);
+</script>
+
+</body>
+</html>

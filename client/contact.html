@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Premium Tower Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.2);
+  --dark: #0A0A0F;
+  --dark-2: #111118;
+  --dark-3: #1A1A24;
+  --cream: #F5F0E8;
+  --text-muted: rgba(245,240,232,0.6);
+  --nav-h: 80px;
+  --success: #2ed573;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'DM Sans', sans-serif; background-color: var(--dark); color: var(--cream); line-height: 1.6; overflow-x: hidden; position: relative; }
+/* Background noise texture for premium feel */
+body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.04"/%3E%3C/svg%3E');
+  pointer-events: none; z-index: 1000;
+}
+
+h1, h2, h3, h4, .cormorant { font-family: 'Cormorant Garamond', serif; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: var(--transition); }
+em { font-style: italic; color: var(--gold); font-weight: 600; }
+
+/* Navbar */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(4px); border-bottom: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; padding: 0 60px; transition: var(--transition); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); }
+.logo span { color: var(--cream); font-weight: 300; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; font-weight: 400; }
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+.nav-button { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; border-radius: 2px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.nav-button:hover { background: var(--gold); color: var(--dark); }
+.hamburger { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; z-index: 101; }
+.nav-menu-mobile { position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid rgba(201,168,76,0.1); flex-direction: column; padding: 20px 30px; gap: 20px; display: none; }
+.nav-menu-mobile.open { display: flex; }
+
+/* Utilities */
+.btn-primary { background: var(--gold); color: var(--dark); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+.btn-outline { background: transparent; border: 1px solid rgba(245,240,232,0.25); color: var(--cream); padding: 16px 40px; border-radius: 2px; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.1); }
+.section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.section-heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+.section-subtext { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Header */
+.page-header { padding: calc(var(--nav-h) + 80px) 60px 60px; text-align: center; position: relative; background: radial-gradient(ellipse 70% 80% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 60%); }
+
+/* Contact Cards */
+.contact-cards { max-width: 1200px; margin: 0 auto 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; padding: 0 40px; }
+.contact-card { background: rgba(17,17,24,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 40px 30px; border-radius: 6px; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;}
+.contact-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, var(--gold-dim) 0%, transparent 70%); opacity: 0; transition: var(--transition); pointer-events: none;}
+.contact-card:hover { transform: translateY(-8px); border-color: var(--gold-border); background: rgba(17,17,24,0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.contact-card:hover::before { opacity: 1; }
+.cc-icon { font-size: 2rem; color: var(--gold); border: 1px solid var(--gold-border); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; transition: var(--transition); background: rgba(201,168,76,0.05); }
+.contact-card:hover .cc-icon { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+.cc-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--cream); }
+.cc-desc { font-size: 0.9rem; color: var(--text-muted); }
+.cc-link { font-size: 0.95rem; color: var(--gold); font-weight: 500; margin-top: auto; display: block; }
+.cc-link:hover { text-decoration: underline; }
+
+/* Main Contact Section (Form + Right side) */
+.contact-main { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+/* Form Styled */
+.form-wrapper { background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); border: 1px solid var(--gold-border); padding: 50px 40px; border-radius: 6px; }
+.form-wrapper h3 { font-size: 2.2rem; margin-bottom: 10px; }
+.form-wrapper p { color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; }
+
+.form-group { margin-bottom: 24px; position: relative; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.form-label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 16px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: var(--transition); }
+.form-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+.form-input::placeholder { color: rgba(245,240,232,0.3); }
+select.form-input { appearance: none; cursor: pointer; }
+select.form-input option { background: var(--dark-2); color: var(--cream); }
+textarea.form-input { resize: vertical; min-height: 150px; }
+
+.loading-spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(10,10,15,0.3); border-top-color: var(--dark); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.success-msg { display: none; background: rgba(46, 213, 115, 0.1); border: 1px solid rgba(46, 213, 115, 0.2); padding: 20px; border-radius: 4px; margin-top: 20px; color: var(--success); font-weight: 500; font-size: 0.9rem; align-items: center; gap: 10px; }
+
+/* Right Info (Map + Hrs) */
+.info-wrapper { display: flex; flex-direction: column; gap: 40px; }
+.map-container { width: 100%; height: 350px; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+/* Simulated Map styling using a styled empty block or inverted Google map */
+.map-iframe { width: 100%; height: 100%; border: none; filter: invert(90%) hue-rotate(180deg) brightness(80%) contrast(85%); transition: var(--transition); }
+.map-overlay { position: absolute; inset: 0; background: rgba(10,10,15,0.2); pointer-events: none; }
+.map-container:hover .map-iframe { filter: invert(90%) hue-rotate(180deg) brightness(90%) contrast(100%); }
+
+.hours-card { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-radius: 6px; }
+.hours-card h4 { font-size: 1.6rem; margin-bottom: 24px; color: var(--gold); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
+.hour-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); font-size: 0.95rem; }
+.hour-row:last-child { border-bottom: none; padding-bottom: 0; }
+.hour-row span:first-child { font-weight: 500; color: var(--cream); }
+
+/* FAQ Section */
+.faq-section { max-width: 800px; margin: 0 auto 100px; padding: 0 40px; }
+.faq-header { text-align: center; margin-bottom: 50px; }
+.accordion { display: flex; flex-direction: column; gap: 16px; }
+.acc-item { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; }
+.acc-header { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: var(--transition); }
+.acc-header:hover { background: rgba(255,255,255,0.02); }
+.acc-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--cream); }
+.acc-icon { font-size: 1.2rem; color: var(--gold); transition: transform 0.3s; }
+.acc-content { padding: 0 30px; max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), padding 0.4s ease; color: var(--text-muted); font-size: 0.95rem; }
+.acc-item.active .acc-content { padding: 0 30px 24px; max-height: 200px; } /* max-height approach */
+.acc-item.active .acc-icon { transform: rotate(45deg); }
+.acc-item.active { border-color: var(--gold-border); background: rgba(17,17,24,0.6); }
+
+/* CTA Section */
+#cta { padding: 120px 60px; text-align: center; background: radial-gradient(circle at center, var(--dark-2) 0%, var(--dark) 100%); border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border); }
+.cta-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 30px; }
+
+/* Floating WhatsApp */
+.floating-wa { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 25px rgba(37,211,102,0.3); z-index: 90; transition: var(--transition); text-decoration: none; }
+.floating-wa:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(37,211,102,0.5); }
+
+/* Footer */
+footer { padding: 80px 60px 40px; background: var(--dark-2); position: relative; z-index: 10; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand { margin-bottom: 20px; display: inline-block; }
+.footer-col h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 24px; }
+.footer-col a, .footer-col p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: block; }
+.copyright { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; text-align: center; color: rgba(245,240,232,0.3); font-size: 0.85rem; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  nav { padding: 0 30px; } .nav-links, .nav-button { display: none; } .hamburger { display: block; }
+  .contact-main { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .page-header { padding-left: 20px; padding-right: 20px; }
+  .contact-cards { padding: 0 20px; }
+  .contact-main { padding: 0 20px; gap: 40px; }
+  .form-wrapper { padding: 30px 20px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .faq-section { padding: 0 20px; }
+  .acc-header { padding: 20px; } .acc-content { padding: 0 20px; }
+  .cta-buttons { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">Premium <span>Tower Palace</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html">Availability</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="assistance.html">Assistance</a>
+  </div>
+  <button class="nav-button" onclick="window.location.href='availability.html'">Book Now</button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+  <div class="nav-menu-mobile" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="availability.html">Availability</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="assistance.html">Assistance</a>
+  </div>
+</nav>
+
+<header class="page-header reveal">
+  <span class="section-tag">Get In Touch</span>
+  <h1 class="section-heading">Contact <em>Us</em></h1>
+  <p class="section-subtext">We're here to answer your questions and help you secure your space at Premium Tower Palace.</p>
+</header>
+
+<div class="contact-cards reveal">
+  <div class="contact-card">
+    <div class="cc-icon">📍</div>
+    <h3 class="cc-title">Location</h3>
+    <p class="cc-desc" style="margin-bottom: 10px;">Near KNUST Campus<br>Kumasi, Ghana</p>
+    <a href="#map" class="cc-link">View Map</a>
+  </div>
+  
+  <div class="contact-card" style="transition-delay: 0.1s;">
+    <div class="cc-icon">📞</div>
+    <h3 class="cc-title">Phone</h3>
+    <p class="cc-desc" style="margin-bottom: 10px;">Mon - Fri from 8am to 6pm</p>
+    <a href="tel:+233550000000" class="cc-link">+233 55 000 0000</a>
+  </div>
+  
+  <div class="contact-card" style="transition-delay: 0.2s;">
+    <div class="cc-icon">✉️</div>
+    <h3 class="cc-title">Email</h3>
+    <p class="cc-desc" style="margin-bottom: 10px;">Our friendly team is here to help</p>
+    <a href="mailto:hello@premiumtower.com" class="cc-link">hello@premiumtower.com</a>
+  </div>
+  
+  <div class="contact-card" style="transition-delay: 0.3s;">
+    <div class="cc-icon">💬</div>
+    <h3 class="cc-title">WhatsApp</h3>
+    <p class="cc-desc" style="margin-bottom: 10px;">Message us for quick replies</p>
+    <a href="https://wa.me/233550000000" target="_blank" class="cc-link">Start Chat</a>
+  </div>
+</div>
+
+<div class="contact-main">
+  <!-- Left Form -->
+  <div class="form-wrapper reveal" style="transition-delay: 0.2s;">
+    <h3 class="cormorant">Send a <em>Message</em></h3>
+    <p>Fill out the form below and our management team will reach out to you seamlessly.</p>
+    
+    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" required placeholder="john@example.com">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" required placeholder="+233 00 000 0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <select class="form-input" required>
+            <option value="Booking Inquiry">Booking Inquiry</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Schedule a Tour">Schedule a Tour</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input" required placeholder="How can we help you today?"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary" style="width: 100%;" id="submitBtn">
+        <span class="btn-text">Send Message</span>
+        <div class="loading-spinner" id="btnSpinner"></div>
+      </button>
+
+      <div class="success-msg" id="successBlock">
+        <span style="font-size: 1.2rem;">✓</span> Your message has been sent. We'll get back to you shortly.
+      </div>
+    </form>
+  </div>
+
+  <!-- Right Info -->
+  <div class="info-wrapper reveal" style="transition-delay: 0.4s;">
+    <div class="map-container" id="map">
+      <div class="map-overlay"></div>
+      <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d126588.62957597143!2d-1.6384218320312521!3d6.685361300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f30a91e56b%3A0xc3f5b7afdb02f6a!2sKwame%20Nkrumah%20University%20of%20Science%20and%20Technology!5e0!3m2!1sen!2sgh!4v1700000000000!5m2!1sen!2sgh" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    
+    <div class="hours-card">
+      <h4 class="cormorant">Operating Hours</h4>
+      <div class="hour-row">
+        <span>Monday - Friday</span>
+        <span>8:00 AM - 6:00 PM</span>
+      </div>
+      <div class="hour-row">
+        <span>Saturday</span>
+        <span>9:00 AM - 4:00 PM</span>
+      </div>
+      <div class="hour-row">
+        <span>Sunday</span>
+        <span>Closed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="faq-section reveal">
+  <div class="faq-header">
+    <span class="section-tag">Quick Answers</span>
+    <h2 class="section-heading cormorant">Frequently Asked <em>Questions</em></h2>
+  </div>
+  
+  <div class="accordion">
+    <div class="acc-item" onclick="toggleAccordion(this)">
+      <div class="acc-header">
+        <span class="acc-title">How do I book a room?</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-content">
+        <p>You can book a room directly through our Availability page. Simply select your preferred room type and click 'Book Now'. You'll be asked to provide some basic information to secure your reservation.</p>
+      </div>
+    </div>
+    
+    <div class="acc-item" onclick="toggleAccordion(this)">
+      <div class="acc-header">
+        <span class="acc-title">Can I schedule a physical visit?</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-content">
+        <p>Absolutely. We highly encourage prospective residents to tour the facility. You can select "Schedule a Tour" in the contact form above, or call us directly during working hours.</p>
+      </div>
+    </div>
+    
+    <div class="acc-item" onclick="toggleAccordion(this)">
+      <div class="acc-header">
+        <span class="acc-title">What amenities are included in the price?</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-content">
+        <p>Your booking includes fully furnished rooms, high-speed WiFi, 24/7 power and water supply, access to study lounges, weekly cleaning, and top-tier security. Some premium rooms also include exclusive access to the rooftop lounge.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="cta" class="reveal">
+  <span class="section-tag" style="margin-bottom: 20px;">Take The Next Step</span>
+  <h2 class="section-heading cormorant">Ready to Experience <em>Premium Living?</em></h2>
+  <div class="cta-buttons">
+    <a href="availability.html" class="btn-primary">Book Now</a>
+    <a href="about.html" class="btn-outline">Discover Our Story</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col" style="grid-column: span 1.5;">
+      <a href="index.html" class="logo footer-brand">Premium <span>Tower Palace</span></a>
+      <p>Elevating student and young professional living with premium amenities, unbeatable safety, and community focus.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="index.html">Homepage</a>
+      <a href="about.html">About Us</a>
+      <a href="availability.html">Availability</a>
+      <a href="assistance.html">Assistance</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <p>📞 +233 55 000 0000</p>
+      <p>✉️ hello@premiumtower.com</p>
+      <p>📍 Near KNUST, Kumasi</p>
+    </div>
+  </div>
+  <div class="copyright">&copy; 2026 Premium Tower Palace. All rights reserved.</div>
+</footer>
+
+<a href="https://wa.me/233550000000" target="_blank" class="floating-wa" title="Chat on WhatsApp">
+  <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='32' height='32' fill='white'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.505-1.098-1.008-1.84-2.253-2.053-2.55-.214-.298-.023-.459.126-.607.134-.133.297-.348.446-.521.151-.173.2-.297.3-.496.1-.198.05-.372-.025-.521-.075-.149-.67-1.611-.918-2.206-.241-.579-.486-.501-.67-.51l-.572-.009c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.478 0 1.461 1.065 2.874 1.213 3.073.149.198 2.096 3.199 5.076 4.485.709.307 1.263.491 1.694.629.712.227 1.36.195 1.871.118.575-.086 1.758-.718 2.006-1.413.248-.695.248-1.29.174-1.414-.075-.124-.273-.198-.571-.347z'/%3E%3Cpath d='M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.122 1.543 5.86L.416 23.584l5.808-1.124A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.956c-1.803 0-3.565-.487-5.111-1.408l-.367-.218-3.799.735.753-3.69-.239-.38C2.26 15.352 1.77 13.722 1.77 12c0-5.632 4.598-10.187 10.23-10.187 5.632 0 10.23 4.555 10.23 10.187 0 5.633-4.598 10.187-10.23 10.187z'/%3E%3C/svg%3E" alt="WA">
+</a>
+
+<script>
+// Mobile Nav logic
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.background = window.scrollY > 50 
+    ? 'rgba(10,10,15,0.98)' 
+    : 'linear-gradient(to bottom, rgba(10,10,15,0.95), transparent)';
+});
+
+// Reveal Observer
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form Submission Simulation
+function handleFormSubmit(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitBtn');
+  const btnText = btn.querySelector('.btn-text');
+  const spinner = document.getElementById('btnSpinner');
+  const successBlock = document.getElementById('successBlock');
+  const form = document.getElementById('contactForm');
+  
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+  btn.disabled = true;
+  successBlock.style.display = 'none';
+
+  setTimeout(() => {
+    btnText.style.display = 'block';
+    spinner.style.display = 'none';
+    btn.disabled = false;
+    successBlock.style.display = 'flex';
+    form.reset();
+    setTimeout(() => { successBlock.style.display = 'none'; }, 5000);
+  }, 1500);
+}
+
+// Accordion Logic
+function toggleAccordion(el) {
+  const isActive = el.classList.contains('active');
+  // Close all
+  document.querySelectorAll('.acc-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  // Open clicked if it wasn't open
+  if (!isActive) {
+    el.classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
