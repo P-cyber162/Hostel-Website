@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Premium Tower Palace</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="login-body">
+  <div class="login-card" id="loginCard">
+    <h2 style="font-family:var(--font-heading); color:var(--gold); font-size:2rem; margin-bottom:0.5rem;">Premium <span>Tower Palace</span></h2>
+    <p style="color:var(--text-muted); margin-bottom:2rem; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em;">Admin Portal</p>
+    
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Admin Email" class="w-100" style="padding:1rem; background:var(--dark-2); border:1px solid var(--gold-dim); color:var(--cream); margin-bottom:1rem;" required />
+      <input type="password" id="password" placeholder="Password" class="w-100" style="padding:1rem; background:var(--dark-2); border:1px solid var(--gold-dim); color:var(--cream); margin-bottom:1.5rem;" required />
+      <button type="submit" class="btn-primary w-100 w-100">Sign In</button>
+    </form>
+    <p id="errorMsg" style="color:#C94C4C; margin-top:1rem; display:none; font-size:0.85rem;">Invalid credentials. Please try again.</p>
+  </div>
+
+  <script src="../js/admin/auth.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.innerText = 'Authenticating...';
+      
+      const email = document.getElementById('email').value;
+      const pwd = document.getElementById('password').value;
+      
+      try {
+        const res = await fetch(API_URL + '/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        
+        if (!res.ok) throw new Error('Auth failed');
+        const data = await res.json();
+        
+        localStorage.setItem('ptp_token', data.token);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        btn.innerText = 'Sign In';
+        const card = document.getElementById('loginCard');
+        const msg = document.getElementById('errorMsg');
+        
+        card.classList.remove('login-error');
+        // trigger reflow
+        void card.offsetWidth;
+        card.classList.add('login-error');
+        msg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
