@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Availability | Premium Tower Palace</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/availability.css">
+</head>
+<body>
+  <!-- Navbar Shared -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        Premium <span>Tower Palace</span>
+      </a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html">Rooms</a>
+        <a href="availability.html" class="active">Availability</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-cta">Book Now</button>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero text-center">
+    <div class="hero-content">
+      <span class="section-tag">Find Your Space</span>
+      <h1>Current <em>Availability</em></h1>
+    </div>
+  </header>
+
+  <div class="filter-bar sticky-filter" id="filterBar">
+    <div class="container filter-container">
+      <select id="typeFilter">
+        <option value="">All Room Types</option>
+        <option value="single">Single Suite</option>
+        <option value="shared">Shared Room</option>
+        <option value="vip">VIP Suite</option>
+      </select>
+
+      <div class="price-range">
+        <input type="number" id="minPrice" placeholder="Min ₵" />
+        <span>—</span>
+        <input type="number" id="maxPrice" placeholder="Max ₵" />
+      </div>
+
+      <select id="statusFilter">
+        <option value="">All Statuses</option>
+        <option value="Available">Available</option>
+        <option value="Reserved">Reserved</option>
+        <option value="Occupied">Occupied</option>
+      </select>
+
+      <button class="btn-primary" id="applyFiltersBtn">Apply Filters</button>
+    </div>
+  </div>
+
+  <main class="container py-4">
+    <div class="room-grid" id="roomGrid">
+      <!-- Skeleton Loaders initial state -->
+      <div class="room-card skeleton-card">
+        <div class="skeleton-img skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text skeleton w-50"></div>
+      </div>
+      <div class="room-card skeleton-card">
+        <div class="skeleton-img skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text skeleton w-50"></div>
+      </div>
+      <div class="room-card skeleton-card">
+        <div class="skeleton-img skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text skeleton w-50"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">...</footer> <!-- Reuse from Global / index -->
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="closeModalBtn">✕</button>
+      <h3 class="text-center mb-2">Book a <em>Suite</em></h3>
+      <form id="bookingForm">
+        <input type="text" id="b-name" placeholder="Full Name" required />
+        <input type="email" id="b-email" placeholder="Email Address" required />
+        <input type="tel" id="b-phone" placeholder="Phone Number" required />
+        <input type="text" id="b-room" placeholder="Room ID/Type" readonly required />
+        <input type="date" id="b-date" required />
+        <button type="submit" class="btn-primary w-100 mt-2">Submit Request</button>
+      </form>
+      <div class="success-state" id="bookingSuccess" style="display: none;">
+        <div class="icon">✓</div>
+        <h2>Booking Request Received</h2>
+        <p>We will contact you within 24 hours to confirm.</p>
+        <button class="btn-primary mt-2" onclick="closeBookingModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/availability.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

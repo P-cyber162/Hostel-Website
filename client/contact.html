@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Premium Tower Palace</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/about.css">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .highlight-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--dark-3);
+      border: 1px solid var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+    .contact-card {
+      background: var(--dark-3);
+      border: 1px solid var(--gold-dim);
+      padding: 2.5rem;
+      border-radius: 2px;
+    }
+    .contact-card input, .contact-card textarea {
+      width: 100%;
+      padding: 1rem;
+      background: var(--dark-2);
+      border: 1px solid var(--gold-dim);
+      color: var(--cream);
+      font-family: var(--font-body);
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .contact-card input:focus, .contact-card textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .map-container {
+      width: 100%;
+      height: 380px;
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 4rem;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Shared -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        Premium <span>Tower Palace</span>
+      </a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html">Rooms</a>
+        <a href="availability.html">Availability</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+      <button class="nav-cta">Book Now</button>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero text-center">
+    <div class="hero-content">
+      <span class="section-tag">Reach Out</span>
+      <h1>Contact <em>Us</em></h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="contact-grid">
+      <!-- Left Column -->
+      <div class="reveal">
+        <span class="section-tag">Direct Line</span>
+        <h2>Get In <em>Touch</em></h2>
+        <p style="color:var(--text-muted); margin-bottom:3rem;">We are here to assist you with inquiries, bookings, and providing an unparalleled experience. Reach out directly using the details below.</p>
+        
+        <div class="contact-item">
+          <div class="highlight-icon">📞</div>
+          <div>
+            <div style="font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em;">Phone</div>
+            <div style="color:var(--cream);">+233 55 123 4567</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="highlight-icon">✉️</div>
+          <div>
+            <div style="font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em;">Email</div>
+            <div style="color:var(--cream);">info@ptp.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="highlight-icon">📍</div>
+          <div>
+            <div style="font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em;">Address</div>
+            <div style="color:var(--cream);">123 Palace Rd, Prestige Avenue</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="highlight-icon">💬</div>
+          <div>
+            <div style="font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em;">WhatsApp</div>
+            <div style="color:var(--cream);">+233 55 123 4567</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column Form -->
+      <div class="contact-card reveal">
+        <form id="contactForm">
+          <input type="text" id="c-name" placeholder="Your Name" required />
+          <input type="email" id="c-email" placeholder="Your Email" required />
+          <textarea id="c-message" rows="5" placeholder="How can we help?" required></textarea>
+          <button type="submit" class="btn-primary w-100">Send Message</button>
+        </form>
+        <div class="success-state" id="contactSuccess" style="display:none; padding:4rem 0;">
+          <div class="icon">✓</div>
+          <h2>Message Received</h2>
+          <p>We'll respond to your inquiry shortly.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-container reveal">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.3661159938883!2d-0.1984!3d5.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzYnMTMuMyJOIDDCsDExJzU0LjIiVw!5e0!3m2!1sen!2sgh!4v1620000000000!5m2!1sen!2sgh" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom container"><p>&copy; 2026 Premium Tower Palace.</p></div>
+  </footer>
+
+  <script src="js/contact.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>
