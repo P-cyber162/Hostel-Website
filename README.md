@@ -1,1 +1,1 @@
-Hostel Site!
+Hostel Site
